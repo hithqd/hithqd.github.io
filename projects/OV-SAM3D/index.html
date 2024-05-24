@@ -198,7 +198,24 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Transformers have revolutionized the point cloud learning task, but the quadratic complexity hinders its extension to long sequence and makes a burden on limited computational resources. The recent advent of RWKV, a fresh breed of deep sequence models, has shown immense potential for sequence modeling in NLP tasks. In this paper, we present PointRWKV, a model of linear complexity derived from the RWKV model in the NLP field with necessary modifications for point cloud learning tasks. Specifically, taking the embedded point patches as input, we first propose to explore the global processing capabilities within PointRWKV blocks using modified multi-headed matrix-valued states and a dynamic attention recurrence mechanism. To extract local geometric features simultaneously, we design a  parallel branch to encode the point cloud efficiently in a fixed radius near-neighbors graph with a graph stabilizer. Furthermore, we design PointRWKV as a multi-scale framework for hierarchical feature learning of 3D point clouds, facilitating various downstream tasks. Extensive experiments on different point cloud learning tasks show our proposed PointRWKV outperforms the transformer- and mamba-based counterparts, while significantly saving about 46\% FLOPs, demonstrating the potential option for constructing foundational 3D models. The code and models will be available for further research.
+            Open-vocabulary 3D scene understanding presents a significant challenge in the
+field. Recent advancements have sought to transfer knowledge embedded in vision-
+language models from the 2D domain to 3D domain. However, these approaches
+often require learning prior knowledge from specific 3D scene datasets, which limits
+their applicability in open-world scenarios. The Segment Anything Model (SAM)
+has demonstrated remarkable zero-shot segmentation capabilities, prompting us to
+investigate its potential for comprehending 3D scenes without the need for training.
+In this paper, we introduce OV-SAM3D, a universal framework for open-vocabulary
+3D scene understanding. This framework is designed to perform understanding
+tasks for any 3D scene without requiring prior knowledge of the scene. Specifically,
+our method is composed of two key sub-modules: First, we initiate the process
+by generating superpoints as the initial 3D prompts and refine these prompts
+using segment masks derived from SAM. Moreover, we then integrate a specially
+designed overlapping score table with open tags from the Recognize Anything
+Model (RAM) to produce final 3D instances with open-world label. Empirical
+evaluations conducted on the ScanNet200 and nuScenes datasets demonstrate that
+our approach surpasses existing open-vocabulary methods in unknown open-world
+environments.
           </p>
         </div>
       </div>
