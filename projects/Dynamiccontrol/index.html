@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="OV-SAM3D">
+  <meta name="keywords" content="vision-language model, open-vocabulary segment, 3D scene understanding">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open-Vocabulary SAM3D: Understand Any 3D Scene</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+<!--  <link rel="icon" href="./static/images/favicon.svg">-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<!--<nav class="navbar" role="navigation" aria-label="main navigation">-->
+<!--  <div class="navbar-brand">-->
+<!--    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">-->
+<!--      <span aria-hidden="true"></span>-->
+<!--      <span aria-hidden="true"></span>-->
+<!--      <span aria-hidden="true"></span>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div class="navbar-menu">-->
+<!--    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">-->
+<!--      <a class="navbar-item" href="">-->
+<!--      <span class="icon">-->
+<!--          <i class="fas fa-home"></i>-->
+<!--      </span>-->
+<!--      </a>-->
+
+<!--      <div class="navbar-item has-dropdown is-hoverable">-->
+<!--&lt;!&ndash;        <a class="navbar-link">&ndash;&gt;-->
+<!--&lt;!&ndash;          More Research&ndash;&gt;-->
+<!--&lt;!&ndash;        </a>&ndash;&gt;-->
+<!--        <a class="navbar-navbar">-->
+<!--          <a class="navbar-item" href="https://zhangzin.github.io/#-publications" style="color: red; font-weight: bold;">-->
+<!--            More Researches-->
+<!--          </a>-->
+<!--        </a>-->
+<!--        <div class="navbar">-->
+<!--          <a class="navbar-item" href="https://lewandofskee.github.io/projects/diad" style="color: blue; font-weight: bold;">-->
+<!--            DiAD-->
+<!--          </a>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</nav>-->
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a >
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href=" ">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a >
+      <div class="navbar-item has-dropdown is-hoverable">
+        <!-- <a class="navbar-link">
+          More Researches
+        </a > -->
+        <!-- <div class="navbar-dropdown"> -->
+        <a class="navbar-navbar">
+          <!-- <a class="navbar-item" href="https://github.com/hithqd" style="color: #b02418; font-weight: bold; background-color: #e7bcb9;"> -->
+          <a class="navbar-item" href="https://github.com/HanchenTai" style="color: #b02418; font-weight: bold;">
+            More Researches
+          </a >
+        </a >
+        <div class="navbar">
+          <a class="navbar-item" href="https://hithqd.github.io/projects/OV-SAM3D/"  style="color: #6a99d0; font-weight: bold; background-color: #dce3f2;">
+            OV-SAM3D
+          </a >
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Open-Vocabulary SAM3D: Understand Any 3D Scene</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://github.com/HanchenTai">Hanchen Tai</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=gUJWww0AAAAJ">Qingdong He</a><sup>2*</sup>,</span>
+            <span class="author-block">
+              <a href="https://zhangzjn.github.io">Jiangning Zhang</a><sup>2†</sup>,</span>
+            <span class="author-block">
+              <a href="https:">Yijie Qian</a><sup>1</sup>,</span><br>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=4daxK2AAAAAJ">Zhenyu Zhang</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=3lMuodUAAAAJ">Xiaobin Hu</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=FL3ReD0AAAAJ&hl=zh-CN">Xiangtai Li</a><sup>4</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=xiK4nFUAAAAJ&hl=zh-CN">Yabiao Wang</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=qYcgBbEAAAAJ&hl=zh-CN">Yong Liu</a><sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Zhejiang University</span>  </span>
+            <span class="author-block"><sup>2</sup>Youtu Lab, Tencent</span>
+            <span class="author-block"><sup>3</sup>Nanjing University</span>
+            <span class="author-block"><sup>4</sup>Nanyang Technological University</span>
+          </div>
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2405.15580"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+<!--              <span class="link-block">-->
+<!--                <a href="https://arxiv.org/abs/2312.06607"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="ai ai-arxiv"></i>-->
+<!--                  </span>-->
+<!--                  <span>arXiv</span>-->
+<!--                </a>-->
+<!--              </span>-->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/HanchenTai/OV-SAM3D"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Open-vocabulary 3D scene understanding presents a significant challenge in the
+field. Recent advancements have sought to transfer knowledge embedded in vision-
+language models from the 2D domain to 3D domain. However, these approaches
+often require learning prior knowledge from specific 3D scene datasets, which limits
+their applicability in open-world scenarios. The Segment Anything Model (SAM)
+has demonstrated remarkable zero-shot segmentation capabilities, prompting us to
+investigate its potential for comprehending 3D scenes without the need for training.
+In this paper, we introduce OV-SAM3D, a universal framework for open-vocabulary
+3D scene understanding. This framework is designed to perform understanding
+tasks for any 3D scene without requiring prior knowledge of the scene. Specifically,
+our method is composed of two key sub-modules: First, we initiate the process
+by generating superpoints as the initial 3D prompts and refine these prompts
+using segment masks derived from SAM. Moreover, we then integrate a specially
+designed overlapping score table with open tags from the Recognize Anything
+Model (RAM) to produce final 3D instances with open-world label. Empirical
+evaluations conducted on the ScanNet200 and nuScenes datasets demonstrate that
+our approach surpasses existing open-vocabulary methods in unknown open-world
+environments.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+      
+    <!-- Animation. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <!-- Re-rendering. -->
+        <h2 class="title is-3" style="background: linear-gradient(to right,  indigo, indigo, skyblue,indigo, indigo); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"> Demo</h2>
+<!--         <h3 class="title is-4">Demo</h3> -->
+        <div class="content has-text-justified">
+<!--           <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p> -->
+        </div>
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="static/images/demo.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <!--/ Re-rendering. -->
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+
+  </div>
+</section>
+  
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">Method</h2>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/framework.png" alt="MY ALT TEXT"/>
+       </h2>
+     </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Qualitative Results. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Qualitative Results</h2>
+
+        <!-- Interpolating. -->
+        <h3 class="title is-4">Qualitative results of our method on open-world</h3>
+        <div class="content has-text-justified">
+          <p>
+          </p>
+        </div>
+        <div class="column is-center has-text-centered">
+            <img src="./static/images/open_tags.png"
+                 class="interpolation-image"
+                 alt="MVTec-AD and VisA dataset."/>
+        </div>
+
+        <h3 class="title is-4">Qualitative results of our methods with text queries</h3>
+        <div class="content has-text-justified">
+          <p>
+          </p>
+        </div>
+        <div class="column is-center has-text-centered">
+            <img src="./static/images/query_results1.png"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+        </div>
+
+        <div class="column is-center has-text-centered">
+            <img src="./static/images/query_results2.png"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+<!-- Quantitative Results. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Quantitative Results</h2>
+        <div class="item">
+         </h2>
+        <!-- Interpolating. -->
+        <h3 class="title is-4">3D scene understanding results on the ScanNet200 validation set</h3>
+        <div class="content has-text-justified">
+          <p>
+          </p>
+        </div>
+        <div class="column is-center has-text-centered">
+            <img src="./static/images/t1.png"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+        </div>
+
+        <h3 class="title is-4">3D scene understanding results on the nuScenes validation set</h3>
+        <div class="content has-text-justified">
+          <p>
+          </p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-center has-text-centered">
+              <img src="./static/images/t2.png"
+                   class="interpolation-image"
+                   alt="Interpolate start reference image."/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+@article{tai2024open,
+  title={Open-Vocabulary SAM3D: Understand Any 3D Scene},
+  author={Tai, Hanchen and He, Qingdong and Zhang, Jiangning and Qian, Yijie and Zhang, Zhenyu and Hu, Xiaobin and Wang, Yabiao and Liu, Yong},
+  journal={arXiv preprint arXiv:2405.15580},
+  year={2024}
+}
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            We borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> for our website.
+            We sincerely appreciate Nerfies authors for their awesome templates.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
