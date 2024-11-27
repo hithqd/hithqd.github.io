@@ -1,1 +1,356 @@
-ttt
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="PointRWKV">
+  <meta name="keywords" content="RWKV, Point Cloud Learning">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PointRWKV: Efficient RWKV-Like Model for Hierarchical Point Cloud Learning</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+<!--  <link rel="icon" href="./static/images/favicon.svg">-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<!--<nav class="navbar" role="navigation" aria-label="main navigation">-->
+<!--  <div class="navbar-brand">-->
+<!--    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">-->
+<!--      <span aria-hidden="true"></span>-->
+<!--      <span aria-hidden="true"></span>-->
+<!--      <span aria-hidden="true"></span>-->
+<!--    </a>-->
+<!--  </div>-->
+<!--  <div class="navbar-menu">-->
+<!--    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">-->
+<!--      <a class="navbar-item" href="">-->
+<!--      <span class="icon">-->
+<!--          <i class="fas fa-home"></i>-->
+<!--      </span>-->
+<!--      </a>-->
+
+<!--      <div class="navbar-item has-dropdown is-hoverable">-->
+<!--&lt;!&ndash;        <a class="navbar-link">&ndash;&gt;-->
+<!--&lt;!&ndash;          More Research&ndash;&gt;-->
+<!--&lt;!&ndash;        </a>&ndash;&gt;-->
+<!--        <a class="navbar-navbar">-->
+<!--          <a class="navbar-item" href="https://zhangzin.github.io/#-publications" style="color: red; font-weight: bold;">-->
+<!--            More Researches-->
+<!--          </a>-->
+<!--        </a>-->
+<!--        <div class="navbar">-->
+<!--          <a class="navbar-item" href="https://lewandofskee.github.io/projects/diad" style="color: blue; font-weight: bold;">-->
+<!--            DiAD-->
+<!--          </a>-->
+<!--          </a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</nav>-->
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a >
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href=" ">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a >
+      <div class="navbar-item has-dropdown is-hoverable">
+        <!-- <a class="navbar-link">
+          More Researches
+        </a > -->
+        <!-- <div class="navbar-dropdown"> -->
+        <a class="navbar-navbar">
+          <!-- <a class="navbar-item" href="https://github.com/hithqd" style="color: #b02418; font-weight: bold; background-color: #e7bcb9;"> -->
+          <a class="navbar-item" href="https://github.com/hithqd" style="color: #b02418; font-weight: bold;">
+            More Researches
+          </a >
+        </a >
+        <div class="navbar">
+          <a class="navbar-item" href="https://hithqd.github.io/projects/PointRWKV/"  style="color: #6a99d0; font-weight: bold; background-color: #dce3f2;">
+            PointRWKV
+          </a >
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">PointRWKV: Efficient RWKV-Like Model for Hierarchical Point Cloud Learning</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=gUJWww0AAAAJ">Qingdong He</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://zhangzjn.github.io">Jiangning Zhang</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=i5I-cIEAAAAJ&hl=zh-CN">Jinlong Peng</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=8NfQv1sAAAAJ">Haoyang He</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=FL3ReD0AAAAJ&hl=zh-CN">Xiangtai Li</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=xiK4nFUAAAAJ&hl=zh-CN">Yabiao Wang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=fqte5H4AAAAJ">Chengjie Wang</a><sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Youtu Lab, Tencent</span>
+            <span class="author-block"><sup>2</sup>Zhejiang University</span>
+            <span class="author-block"><sup>3</sup>Nanyang Technological University</span>
+          </div>
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2405.15214"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+<!--              <span class="link-block">-->
+<!--                <a href="https://arxiv.org/abs/2312.06607"-->
+<!--                   class="external-link button is-normal is-rounded is-dark">-->
+<!--                  <span class="icon">-->
+<!--                      <i class="ai ai-arxiv"></i>-->
+<!--                  </span>-->
+<!--                  <span>arXiv</span>-->
+<!--                </a>-->
+<!--              </span>-->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/hithqd/PointRWKV"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Transformers have revolutionized the point cloud learning task, but the quadratic complexity hinders its extension to long sequence and makes a burden on limited computational resources. The recent advent of RWKV, a fresh breed of deep sequence models, has shown immense potential for sequence modeling in NLP tasks. In this paper, we present PointRWKV, a model of linear complexity derived from the RWKV model in the NLP field with necessary modifications for point cloud learning tasks. Specifically, taking the embedded point patches as input, we first propose to explore the global processing capabilities within PointRWKV blocks using modified multi-headed matrix-valued states and a dynamic attention recurrence mechanism. To extract local geometric features simultaneously, we design a  parallel branch to encode the point cloud efficiently in a fixed radius near-neighbors graph with a graph stabilizer. Furthermore, we design PointRWKV as a multi-scale framework for hierarchical feature learning of 3D point clouds, facilitating various downstream tasks. Extensive experiments on different point cloud learning tasks show our proposed PointRWKV outperforms the transformer- and mamba-based counterparts, while significantly saving about 46\% FLOPs, demonstrating the potential option for constructing foundational 3D models. The code and models will be available for further research.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">Method</h2>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/architecture.png" alt="MY ALT TEXT"/>
+       </h2>
+     </div>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+<!-- Quantitative Results. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Quantitative Results</h2>
+        <div class="item">
+        <!-- Your image here -->
+        <img src="static/images/flops.png" alt="MY ALT TEXT" style="width: 600px; height: auto;"/>
+         </h2>
+        <!-- Interpolating. -->
+        <h3 class="title is-4">Classification Results on ScanObjectNN and ModelNet40 Dataset</h3>
+        <div class="content has-text-justified">
+          <p>
+          </p>
+        </div>
+        <div class="column is-center has-text-centered">
+            <img src="./static/images/cls.png"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+        </div>
+
+        <br/>
+        <!--/ Interpolating. -->
+
+        <!-- Re-rendering. -->
+        <h3 class="title is-4">Part Segmentation on ShapeNetPart Dataset</h3>
+        <div class="content has-text-justified">
+          <p>
+          </p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-center has-text-centered">
+              <img src="./static/images/partseg.png"
+                   class="interpolation-image"
+                   alt="Interpolate start reference image."/>
+          </div>
+        </div>
+
+        <h3 class="title is-4">Few-shot Learning</h3>
+        <div class="content has-text-justified">
+          <p>
+          </p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-center has-text-centered">
+              <img src="./static/images/fewshot.png"
+                   class="interpolation-image"
+                   alt="Interpolate start reference image."/>
+          </div>
+        </div>
+
+        <h3 class="title is-4">Semantic Segmentation on S3DIS Dataset</h3>
+        <div class="content has-text-justified">
+          <p>
+          </p>
+        </div>
+        <div class="columns is-centered">
+          <div class="column is-center has-text-centered">
+              <img src="./static/images/s3dis.png"
+                   class="interpolation-image"
+                   alt="Interpolate start reference image."/>
+          </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+      
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Qualitative Results. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Qualitative Results</h2>
+
+        <!-- Interpolating. -->
+        <div class="content has-text-justified">
+          <p>
+          </p>
+        </div>
+        <div class="column is-center has-text-centered">
+            <img src="./static/images/vis.png"
+                 class="interpolation-image"
+                 alt="MVTec-AD and VisA dataset."/>
+        </div>
+        <br/>
+        <!--/ Interpolating. -->
+      </div>
+    </div>
+    <!--/ Animation. -->
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+@article{he2024pointrwkv,
+  title={PointRWKV: Efficient RWKV-Like Model for Hierarchical Point Cloud Learning},
+  author={He, Qingdong and Zhang, Jiangning and Peng, Jinlong and He, Haoyang and Wang, Yabiao and Wang, Chengjie},
+  journal={arXiv preprint arXiv:2405.15214},
+  year={2024}
+}
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            We borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> for our website.
+            We sincerely appreciate Nerfies authors for their awesome templates.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
