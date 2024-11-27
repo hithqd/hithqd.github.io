@@ -154,7 +154,26 @@ evaluator and multi-control adapter to select conditions adaptively.
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Leveraging the large generative prior of the flow transformer for tuning-free image editing requires authentic inversion to project the image into the model's domain and a flexible invariance control mechanism to preserve non-target contents. However, the prevailing diffusion inversion performs deficiently in flow-based models, and the invariance control cannot reconcile diverse rigid and non-rigid editing tasks. To address these, we systematically analyze the <strong>inversion and invariance</strong> control based on the flow transformer. Specifically, we unveil that the Euler inversion shares a similar structure to DDIM yet is more susceptible to the approximation error. Thus, we propose a two-stage inversion to first refine the velocity estimation and then compensate for the leftover error, which pivots closely to the model prior and benefits editing. Meanwhile, we propose the invariance control that manipulates the text features within the adaptive layer normalization, connecting the changes in the text prompt to image semantics. This mechanism can simultaneously preserve the non-target contents while allowing rigid and non-rigid manipulation, enabling a wide range of editing types such as visual text, quantity, facial expression, etc. Experiments on versatile scenarios validate that our framework achieves flexible and accurate editing, unlocking the potential of the flow transformer for versatile image editing.
+          To enhance the controllability of text-to-image diffusion
+models, current ControlNet-like models have explored various control signals to dictate image attributes. However, existing methods either handle conditions inefficiently or use a
+fixed number of conditions, which does not fully address the
+complexity of multiple conditions and their potential conflicts. This underscores the need for innovative approaches
+to manage multiple conditions effectively for more reliable
+and detailed image synthesis. To address this issue, we
+propose a novel framework, DynamicControl , which supports dynamic combinations of diverse control signals, allowing adaptive selection of different numbers and types of
+conditions. Our approach begins with a double-cycle controller that generates an initial real score sorting for all input conditions by leveraging pre-trained conditional generation models and discriminative models. This controller
+evaluates the similarity between extracted conditions and
+input conditions, as well as the pixel-level similarity with
+the source image. Then, we integrate a Multimodal Large
+Language Model (MLLM) to build an efficient condition
+evaluator. This evaluator optimizes the ordering of conditions based on the double-cycle controller’s score ranking.
+Our method jointly optimizes MLLMs and diffusion models,
+utilizing MLLMs’ reasoning capabilities to facilitate multi-condition text-to-image (T2I) tasks. The final sorted conditions are fed into a parallel multi-control adapter, which
+learns feature maps from dynamic visual conditions and
+integrates them to modulate ControlNet, thereby enhancing control over generated images. Through both quantitative and qualitative comparisons, DynamicControl demonstrates its superiority over existing methods in terms of
+controllability, generation quality and composability under
+various conditional controls.
+
           </p>
         </div>
       </div>
