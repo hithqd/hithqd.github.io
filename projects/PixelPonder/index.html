@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="Adaptive Condition Selection for Improved Text-to-Image Generation">
+  <meta property="og:title" content="DynamicControl: Adaptive Condition Selection for Improved Text-to-Image Generation"/>
+  <meta property="og:description" content="Adaptive Condition Selection for Improved Text-to-Image Generation"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="static/image/framework.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>DynamicControl: Adaptive Condition Selection for Improved Text-to-Image Generation</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">DynamicControl: Adaptive Condition Selection for Improved Text-to-Image Generation</h1>
+            <div class="is-size-5 publication-authors">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://scholar.google.com/citations?user=gUJWww0AAAAJ&hl=zh-CN" target="_blank">Qingdong He</a><sup>1</sup>,</span>
+                <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=i5I-cIEAAAAJ&hl=zh-CN" target="_blank">Jinlong Peng</a><sup>1</sup>,</span>
+                  <span class="author-block">
+                    <a href="https://github.com/Pengchengpcx" target="_blank">Pengcheng Xu</a><sup>2</sup>,</span>
+                    <a href="https://byjiang.com/" target="_blank">Boyuan Jiang</a><sup>1</sup>,</span>
+                    <a href="https://huuxiaobin.github.io/" target="_blank">Xiaobin Hu</a><sup>1</sup>,</span>
+                    <a href="https://scholar.google.com/citations?user=2yj541QAAAAJ&hl=en" target="_blank">Donghao Luo</a><sup>1</sup>,</span><br>
+                    <a href="https://scholar.google.com.hk/citations?user=aqvFa1EAAAAJ&hl=zh-CN" target="_blank">Yong Liu</a><sup>1</sup>,</span>
+                    <a href="https://scholar.google.com/citations?user=xiK4nFUAAAAJ&hl=zh-CN" target="_blank">Yabiao Wang</a><sup>1</sup>,</span>
+                    <a href="https://scholar.google.com/citations?user=fqte5H4AAAAJ&hl=zh-CN" target="_blank">Chengjie Wang</a><sup>1</sup>,</span>
+                    <a href="https://scholar.google.com/citations?user=FL3ReD0AAAAJ&hl=zh-CN" target="_blank">Xiangtai Li</a><sup>3</sup>,</span>
+                    <a href="https://scholar.google.com/citations?user=2hA4X9wAAAAJ&hl=en" target="_blank">Jiangning Zhang</a><sup>1</sup>,</span>
+                  </span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block"><sup>1</sup>Youtu Lab, Tencent</span>  </span>
+                    <span class="author-block"><sup>2</sup>Western University</span>
+                    <span class="author-block"><sup>3</sup>Nanyang Technological University</span>
+                  </div>
+
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- Arxiv PDF link -->
+                      <span class="link-block">
+                        <a href="https://arxiv.org/pdf/2412.03255" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+
+                  <!-- Github Link -->
+                  <span class="link-block">
+                    <a href="https://github.com/hithqd/DynamicControl" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- ArXiv abstract Link -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2412.03255" target="_blank"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Teaser-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <div class="container">
+          <div class="item item-steve">
+            <img src="./static/images/fg1.png"  width="100%">
+          </div>
+        </div>
+      <h2 class="subtitle has-text-centered">
+        (Left:) Multiple conditions generation results of our DynamicControl. (Right:) Comparison of different schemes dealing
+with multiple conditions in T2I task. (a) One condition is randomly selected, with an activated MOE encoder, (b) the input number
+of conditions is fixed manually, along with the pre-trained visual encoder, and (c) our proposed DynamicControl proposes a condition
+evaluator and multi-control adapter to select conditions adaptively.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser-->
+
+
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+          To enhance the controllability of text-to-image diffusion
+models, current ControlNet-like models have explored various control signals to dictate image attributes. However, existing methods either handle conditions inefficiently or use a
+fixed number of conditions, which does not fully address the
+complexity of multiple conditions and their potential conflicts. This underscores the need for innovative approaches
+to manage multiple conditions effectively for more reliable
+and detailed image synthesis. To address this issue, we
+propose a novel framework, DynamicControl , which supports dynamic combinations of diverse control signals, allowing adaptive selection of different numbers and types of
+conditions. Our approach begins with a double-cycle controller that generates an initial real score sorting for all input conditions by leveraging pre-trained conditional generation models and discriminative models. This controller
+evaluates the similarity between extracted conditions and
+input conditions, as well as the pixel-level similarity with
+the source image. Then, we integrate a Multimodal Large
+Language Model (MLLM) to build an efficient condition
+evaluator. This evaluator optimizes the ordering of conditions based on the double-cycle controller’s score ranking.
+Our method jointly optimizes MLLMs and diffusion models,
+utilizing MLLMs’ reasoning capabilities to facilitate multi-condition text-to-image (T2I) tasks. The final sorted conditions are fed into a parallel multi-control adapter, which
+learns feature maps from dynamic visual conditions and
+integrates them to modulate ControlNet, thereby enhancing control over generated images. Through both quantitative and qualitative comparisons, DynamicControl demonstrates its superiority over existing methods in terms of
+controllability, generation quality and composability under
+various conditional controls.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+
+<!-- Teaser-->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+        <div class="container">
+          </div>
+          </div>
+          <div class="columns is-centered has-text-centered">
+            <h2 class="title is-3">Method</h2>
+          </div>
+          <div class="item item-steve">
+            <img src="./static/images/framework.png"  width="100%">
+          </div>
+          </div>
+      <h2 class="subtitle has-text-centered">
+        Overall pipeline of the proposed DynamicControl.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser-->
+
+
+<!-- Image carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    
+</br>
+</br>
+</br>
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <h2 class="title is-3">Comparison with Other Methods</h2>
+    </div>
+    <div id="results-carousel" class="carousel results-carousel">
+     <div class="item">
+      <!-- Your image here -->
+      <img src="static/images/vis1.png" alt="MY ALT TEXT"/>
+      <h2 class="subtitle has-text-centered">
+        <!-- First image description. -->
+      </h2>
+    </div>
+    <div class="item">
+      <!-- Your image here -->
+      <img src="static/images/vis2.png" alt="MY ALT TEXT"/>
+      <h2 class="subtitle has-text-centered">
+        <!-- Second image description. -->
+      </h2>
+    </div>
+    <div class="item">
+      <!-- Your image here -->
+      <img src="static/images/vis3.png" alt="MY ALT TEXT"/>
+      <h2 class="subtitle has-text-centered">
+        <!-- Second image description. -->
+      </h2>
+    </div>
+  </div>
+
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
+
+
+
+
+<!--    BibTex citation-->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+      <h2 class="title"><a id="bibtex">BibTeX</a></h2>
+      <pre><code>@article{he2024dynamiccontrol,
+      title={DynamicControl: Adaptive Condition Selection for Improved Text-to-Image Generation},
+      author={He, Qingdong and Peng, Jinlong and Xu, Pengcheng and Jiang, Boyuan and Hu, Xiaobin and Luo, Donghao and Liu, Yong and Wang, Yabiao and Wang, Chengjie and Li, Xiangtai and Zhang, Jiangning},
+      journal={arXiv preprint arXiv:2412.03255},
+      year={2024}
+      }</code></pre>
+  </div>
+</section>
+<!--    End BibTex citation-->
+
+
+
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
