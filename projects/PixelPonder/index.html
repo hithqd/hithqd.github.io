@@ -24,7 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <title>DynamicControl: Adaptive Condition Selection for Improved Text-to-Image Generation</title>
+  <title>PixelPonder: Dynamic Patch Adaptation for Enhanced Multi-Conditional Text-to-Image Generation</title>
   <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
   rel="stylesheet">
@@ -52,7 +52,7 @@
       <div class="container is-max-desktop">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">DynamicControl: Adaptive Condition Selection for Improved Text-to-Image Generation</h1>
+            <h1 class="title is-1 publication-title">PixelPonder: Dynamic Patch Adaptation for Enhanced Multi-Conditional Text-to-Image Generation</h1>
             <div class="is-size-5 publication-authors">
               <!-- Paper authors -->
               <span class="author-block">
@@ -134,10 +134,11 @@
           </div>
         </div>
       <h2 class="subtitle has-text-centered">
-        (Left:) Multiple conditions generation results of our DynamicControl. (Right:) Comparison of different schemes dealing
-with multiple conditions in T2I task. (a) One condition is randomly selected, with an activated MOE encoder, (b) the input number
-of conditions is fixed manually, along with the pre-trained visual encoder, and (c) our proposed DynamicControl proposes a condition
-evaluator and multi-control adapter to select conditions adaptively.
+        Visualization comparison between Uni-ControlNet and our proposed method in different conditional controls with
+the same text prompt. (a, left two columns) Text and various visual controls, where C1, C2, C3 and C4 denotes edge, sketch, depth and
+pose map respectively. (b, middle three or four columns) Generation results from UniControlNet. (c, last column) Generation results
+from our PixelPonder. Previous methods struggled to generate coherent results under multiple conditions, while our results maintain strong
+similarity to the respective visual controls.
       </h2>
     </div>
   </div>
@@ -154,25 +155,7 @@ evaluator and multi-control adapter to select conditions adaptively.
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-          To enhance the controllability of text-to-image diffusion
-models, current ControlNet-like models have explored various control signals to dictate image attributes. However, existing methods either handle conditions inefficiently or use a
-fixed number of conditions, which does not fully address the
-complexity of multiple conditions and their potential conflicts. This underscores the need for innovative approaches
-to manage multiple conditions effectively for more reliable
-and detailed image synthesis. To address this issue, we
-propose a novel framework, DynamicControl , which supports dynamic combinations of diverse control signals, allowing adaptive selection of different numbers and types of
-conditions. Our approach begins with a double-cycle controller that generates an initial real score sorting for all input conditions by leveraging pre-trained conditional generation models and discriminative models. This controller
-evaluates the similarity between extracted conditions and
-input conditions, as well as the pixel-level similarity with
-the source image. Then, we integrate a Multimodal Large
-Language Model (MLLM) to build an efficient condition
-evaluator. This evaluator optimizes the ordering of conditions based on the double-cycle controller’s score ranking.
-Our method jointly optimizes MLLMs and diffusion models,
-utilizing MLLMs’ reasoning capabilities to facilitate multi-condition text-to-image (T2I) tasks. The final sorted conditions are fed into a parallel multi-control adapter, which
-learns feature maps from dynamic visual conditions and
-integrates them to modulate ControlNet, thereby enhancing control over generated images. Through both quantitative and qualitative comparisons, DynamicControl demonstrates its superiority over existing methods in terms of
-controllability, generation quality and composability under
-various conditional controls.
+          Recent advances in diffusion-based text-to-image generation have demonstrated promising results through visual condition control. However, existing ControlNet-like methods struggle with compositional visual conditioning - simultaneously preserving semantic fidelity across multiple heterogeneous control signals while maintaining high visual quality, where they employ separate control branches that often introduce conflicting guidance during the denoising process, leading to structural distortions and artifacts in generated images. To address this issue, we present PixelPonder, a novel unified control framework, which allows for effective control of multiple visual conditions under a single control structure. Specifically, we design a patch-level adaptive condition selection mechanism that dynamically prioritizes spatially relevant control signals at the sub-region level, enabling precise local guidance without global interference. Additionally, a time-aware control injection scheme is deployed to modulate condition influence according to denoising timesteps, progressively transitioning from structural preservation to texture refinement and fully utilizing the control information from different categories to promote more harmonious image generation. Extensive experiments demonstrate that PixelPonder surpasses previous methods across different benchmark datasets, showing superior improvement in spatial alignment accuracy while maintaining high textual semantic consistency. 
           </p>
         </div>
       </div>
